@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { toast } from "sonner";
+import contactHero from "@/assets/contact-hero.jpg";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -66,6 +67,15 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div className="space-y-8 reveal-slide-left">
+            {/* Hero Image */}
+            <div className="relative rounded-2xl overflow-hidden shadow-glow mb-8">
+              <img
+                src={contactHero}
+                alt="Professional business consultation using mobile technology for VAM.one XR solutions"
+                className="w-full h-64 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
+            </div>
             <div className="card-elevated">
               <h3 className="text-2xl font-bold text-primary mb-6">
                 Quick Contact

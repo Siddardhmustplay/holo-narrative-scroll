@@ -168,4 +168,36 @@
   .preserve-3d {
     transform-style: preserve-3d;
   }
+
+  /* Auto-scrolling Clients Carousel */
+  .client-scroll-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .client-scroll-track {
+    display: flex;
+    animation: scroll 40s linear infinite;
+    will-change: transform;
+  }
+
+  .client-scroll-track:hover {
+    animation-play-state: paused;
+  }
+
+  .client-logo-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-33.333%);
+    }
+  }
 }
