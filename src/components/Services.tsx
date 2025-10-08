@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Headset,
   Layers,
@@ -19,8 +18,6 @@ import realEstate from "@/assets/service-real-estate.jpg";
 import assetCreation from "@/assets/service-3d-asset-creation.jpg";
 
 const Services = () => {
-  const [activeService, setActiveService] = useState(0);
-
   const services = [
     {
       icon: Headset,
@@ -80,91 +77,67 @@ const Services = () => {
     },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const servicesSection = document.getElementById("services");
-      if (!servicesSection) return;
-
-      const cards = servicesSection.querySelectorAll(".service-card");
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        if (rect.top < windowHeight * 0.5 && rect.bottom > windowHeight * 0.3) {
-          setActiveService(index);
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <section id="services" className="py-24 px-6 bg-secondary/30">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[400px_1fr] gap-12">
-          {/* Sticky Title */}
-          <div className="lg:sticky lg:top-32 lg:self-start space-y-6">
-            <div className="reveal-slide-left">
-              <h2 className="text-4xl md:text-6xl font-bold text-primary mb-6">
-                Our <span className="text-gradient">Services</span>
-              </h2>
-              <div className="w-24 h-1 bg-accent mb-6" />
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Comprehensive XR solutions tailored to transform your business operations
-                and training programs.
-              </p>
-            </div>
-          </div>
+        {/* Header */}
+        <div className="text-center mb-16 reveal-slide-left">
+          <h2 className="text-4xl md:text-6xl font-bold text-primary mb-6">
+            Our <span className="text-gradient">Services</span>
+          </h2>
+          <div className="w-24 h-1 bg-accent mx-auto mb-8" />
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Comprehensive XR solutions tailored to transform your business operations
+            and training programs.
+          </p>
+        </div>
 
-          {/* Service Cards */}
-          <div className="space-y-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`group service-card card-elevated reveal-3d-card stagger-${
-                  (index % 4) + 1
-                } ${
-                  activeService === index
-                    ? "scale-105 shadow-glow border-2 border-accent/20"
-                    : ""
-                } transition-all duration-300`}
-              >
-                <div className="flex flex-col md:flex-row items-start gap-6">
-                  {/* Service Image */}
-                  <div className="w-full md:w-48 h-48 rounded-lg overflow-hidden flex-shrink-0">
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                  
-                  {/* Icon and Content */}
-                  <div className="flex-1 flex items-start gap-4">
-                    <div
-                      className={`w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                        activeService === index
-                          ? "bg-accent text-white scale-110"
-                          : "bg-accent/10 text-accent"
-                      }`}
-                    >
-                      <service.icon className="w-8 h-8" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-primary mb-3">
-                        {service.title}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {service.description}
-                      </p>
-                    </div>
-                  </div>
+        {/* Service Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <div
+              key={index}
+              className={`group relative overflow-hidden card-elevated reveal-3d-card stagger-${
+                (index % 5) + 1
+              } perspective-1000`}
+            >
+              {/* Service Image */}
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-90" />
+                
+                {/* Icon */}
+                <div className="absolute top-4 right-4 w-12 h-12 rounded-lg bg-accent/90 backdrop-blur-sm flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <service.icon className="w-6 h-6" />
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-primary mb-3 group-hover:text-accent transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-16 reveal-slide-left">
+          <p className="text-lg text-muted-foreground mb-6">
+            Ready to transform your operations with XR technology?
+          </p>
+          <a href="#contact" className="btn-primary">
+            Get In Touch
+          </a>
         </div>
       </div>
     </section>

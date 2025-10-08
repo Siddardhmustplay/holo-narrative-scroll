@@ -1,10 +1,20 @@
+import { useState } from "react";
 import {
   Briefcase,
   Mountain,
   Flame,
   FlaskConical,
   TruckIcon,
+  X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import officeSafety1 from "@/assets/product-office-safety-1.png";
 import officeSafety2 from "@/assets/product-office-safety-2.png";
 import officeSafety3 from "@/assets/product-office-safety-3.png";
@@ -24,6 +34,9 @@ import forkliftSafety2 from "@/assets/product-forklift-safety-2.jpg";
 import forkliftSafety3 from "@/assets/product-forklift-safety-3.jpg";
 
 const Products = () => {
+  const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const products = [
     {
       icon: Briefcase,
@@ -66,6 +79,31 @@ const Products = () => {
       images: [forkliftSafety1, forkliftSafety2, forkliftSafety3],
     },
   ];
+
+  const openGallery = (productIndex: number) => {
+    setSelectedProduct(productIndex);
+    setCurrentImageIndex(0);
+  };
+
+  const closeGallery = () => {
+    setSelectedProduct(null);
+    setCurrentImageIndex(0);
+  };
+
+  const nextImage = () => {
+    if (selectedProduct !== null && products[selectedProduct].images) {
+      const images = products[selectedProduct].images!;
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedProduct !== null && products[selectedProduct].images) {
+      const images = products[selectedProduct].images!;
+      setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    }
+  };
+
 
   return (
     <section id="products" className="py-24 px-6 bg-white">
@@ -123,15 +161,15 @@ const Products = () => {
                 </p>
 
                 {/* Learn More Link */}
-                <a
-                  href="#contact"
-                  className="inline-flex items-center text-accent font-semibold hover:gap-2 transition-all group"
+                <button
+                  onClick={() => openGallery(index)}
+                  className="inline-flex items-center text-accent font-semibold hover:gap-2 transition-all group bg-transparent border-none cursor-pointer"
                 >
                   Learn More
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">
                     →
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           ))}
@@ -146,6 +184,83 @@ const Products = () => {
             Request a Demo
           </a>
         </div>
+
+        {/* Image Gallery Dialog */}
+        <Dialog open={selectedProduct !== null} onOpenChange={closeGallery}>
+          <DialogContent className="max-w-4xl">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-primary">
+                {selectedProduct !== null && products[selectedProduct].title}
+              </DialogTitle>
+            </DialogHeader>
+            
+            {selectedProduct !== null && products[selectedProduct].images && (
+              <div className="space-y-4">
+                {/* Main Image Display */}
+                <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+                  <img
+                    src={products[selectedProduct].images![currentImageIndex]}
+                    alt={`${products[selectedProduct].title} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                  
+                  {/* Navigation Arrows */}
+                  {products[selectedProduct].images!.length > 1 && (
+                    <>
+                      <button
+                        onClick={prevImage}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="w-6 h-6" />
+                      </button>
+                      <button
+                        onClick={nextImage}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="w-6 h-6" />
+                      </button>
+                    </>
+                  )}
+
+                  {/* Image Counter */}
+                  <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm text-sm font-medium">
+                    {currentImageIndex + 1} / {products[selectedProduct].images!.length}
+                  </div>
+                </div>
+
+                {/* Thumbnail Strip */}
+                {products[selectedProduct].images!.length > 1 && (
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {products[selectedProduct].images!.map((image, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentImageIndex(idx)}
+                        className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                          idx === currentImageIndex
+                            ? "border-accent scale-105"
+                            : "border-transparent hover:border-accent/50"
+                        }`}
+                      >
+                        <img
+                          src={image}
+                          alt={`Thumbnail ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Description */}
+                <p className="text-muted-foreground leading-relaxed">
+                  {products[selectedProduct].description}
+                </p>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
