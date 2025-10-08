@@ -5,11 +5,20 @@ import {
   FlaskConical,
   TruckIcon,
 } from "lucide-react";
+import officeSafety1 from "@/assets/product-office-safety-1.png";
+import officeSafety2 from "@/assets/product-office-safety-2.png";
+import officeSafety3 from "@/assets/product-office-safety-3.png";
+import heightSafety1 from "@/assets/product-height-safety-1.png";
+import heightSafety2 from "@/assets/product-height-safety-2.png";
+import heightSafety3 from "@/assets/product-height-safety-3.png";
+import heightSafety4 from "@/assets/product-height-safety-4.png";
 import fireSafety1 from "@/assets/product-fire-safety-1.png";
 import fireSafety2 from "@/assets/product-fire-safety-2.png";
 import fireSafety3 from "@/assets/product-fire-safety-3.png";
 import fireSafety4 from "@/assets/product-fire-safety-4.png";
 import fireSafety5 from "@/assets/product-fire-safety-5.png";
+import pharmaSafety1 from "@/assets/product-pharma-safety-1.png";
+import flammableChemicals from "@/assets/product-flammable-chemicals.png";
 import forkliftSafety1 from "@/assets/product-forklift-safety-1.jpg";
 import forkliftSafety2 from "@/assets/product-forklift-safety-2.jpg";
 import forkliftSafety3 from "@/assets/product-forklift-safety-3.jpg";
@@ -22,6 +31,7 @@ const Products = () => {
       description:
         "Comprehensive workplace safety training covering ergonomics, emergency procedures, and daily safety protocols.",
       color: "from-blue-500 to-cyan-500",
+      images: [officeSafety1, officeSafety2, officeSafety3],
     },
     {
       icon: Mountain,
@@ -29,6 +39,7 @@ const Products = () => {
       description:
         "Advanced training for working at heights, scaffolding safety, fall protection, and rescue procedures.",
       color: "from-purple-500 to-pink-500",
+      images: [heightSafety1, heightSafety2, heightSafety3, heightSafety4],
     },
     {
       icon: Flame,
@@ -44,6 +55,7 @@ const Products = () => {
       description:
         "Specialized pharmaceutical industry safety protocols, cleanroom procedures, and contamination prevention.",
       color: "from-green-500 to-emerald-500",
+      images: [pharmaSafety1, flammableChemicals],
     },
     {
       icon: TruckIcon,
