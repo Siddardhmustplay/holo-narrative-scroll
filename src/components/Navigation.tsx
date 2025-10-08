@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import logoLight from "@/assets/logo-light.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,9 +48,9 @@ const Navigation = () => {
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, "#home")}
-            className="text-2xl font-bold text-primary hover:text-accent transition-colors"
+            className="flex items-center hover:opacity-80 transition-opacity"
           >
-            VAM<span className="text-accent">.one</span>
+            <img src={logoLight} alt="VAM.one VR Safety Training" className="h-10" />
           </a>
 
           {/* Desktop Navigation */}

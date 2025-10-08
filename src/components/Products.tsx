@@ -5,6 +5,14 @@ import {
   FlaskConical,
   TruckIcon,
 } from "lucide-react";
+import fireSafety1 from "@/assets/product-fire-safety-1.png";
+import fireSafety2 from "@/assets/product-fire-safety-2.png";
+import fireSafety3 from "@/assets/product-fire-safety-3.png";
+import fireSafety4 from "@/assets/product-fire-safety-4.png";
+import fireSafety5 from "@/assets/product-fire-safety-5.png";
+import forkliftSafety1 from "@/assets/product-forklift-safety-1.jpg";
+import forkliftSafety2 from "@/assets/product-forklift-safety-2.jpg";
+import forkliftSafety3 from "@/assets/product-forklift-safety-3.jpg";
 
 const Products = () => {
   const products = [
@@ -28,6 +36,7 @@ const Products = () => {
       description:
         "Fire prevention, emergency response, evacuation procedures, and fire extinguisher operation training.",
       color: "from-orange-500 to-red-500",
+      images: [fireSafety1, fireSafety2, fireSafety3, fireSafety4, fireSafety5],
     },
     {
       icon: FlaskConical,
@@ -42,6 +51,7 @@ const Products = () => {
       description:
         "Complete forklift operation training, safety protocols, warehouse navigation, and certification programs.",
       color: "from-yellow-500 to-orange-500",
+      images: [forkliftSafety1, forkliftSafety2, forkliftSafety3],
     },
   ];
 
@@ -75,12 +85,22 @@ const Products = () => {
               />
 
               <div className="relative z-10">
-                {/* Icon */}
-                <div
-                  className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br ${product.color} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <product.icon className="w-8 h-8" />
-                </div>
+                {/* Product Image or Icon */}
+                {product.images && product.images.length > 0 ? (
+                  <div className="w-full h-48 rounded-lg overflow-hidden mb-6 shadow-lg">
+                    <img 
+                      src={product.images[0]} 
+                      alt={`${product.title} VR Training`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br ${product.color} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <product.icon className="w-8 h-8" />
+                  </div>
+                )}
 
                 {/* Content */}
                 <h3 className="text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">
